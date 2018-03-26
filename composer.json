@@ -1,0 +1,27 @@
+{
+    "name": "egretos/esputnic-service",
+    "description": "Esputnic API service provider",
+    "version": "v1.0.0",
+    "keywords": [
+        "esputnic",
+        "esputnic API",
+        "http esputnic API"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Igor Melnichuk",
+            "email": "egretos@outlook.com",
+            "homepage": "https://github.com/egretos",
+            "role": "Owner, Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "psr/log": "~1.0",
+    },
+    "autoload": {
+        "psr-4": {"ESputnicService\\": "src"}
+    }
+}
