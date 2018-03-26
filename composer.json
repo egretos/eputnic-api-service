@@ -1,7 +1,7 @@
 {
     "name": "egretos/esputnic-service",
     "description": "Esputnic API service provider",
-    "version": "v1.0.0",
+    "version": "v1.0.0-stable",
     "keywords": [
         "esputnic",
         "esputnic API",
