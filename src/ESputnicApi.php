@@ -41,7 +41,7 @@ class ESputnicApi
     }
 
     /**
-     * @param $email string Subscriber Email
+     * @param $email string|array Subscriber Email|Params array
      * @param $name string Subscriber Name
      * @param $groups array Subscriber groups
      * @return string
@@ -50,16 +50,26 @@ class ESputnicApi
     {
         $requestFields = new stdClass();
         $requestFields->contact = new stdClass();
-        $requestFields->contact->firstName = $name;
-        $requestFields->contact->channels = [
-            [
-                'type' => 'email',
-                'value' => $email
-            ]
-        ];
+        if (func_num_args() == 1) {
+            $requestFields->contact->firstName = $email['name'];
+            $requestFields->contact->channels = [
+                [
+                    'type' => 'email',
+                    'value' => $email['email']
+                ]
+            ];
+            $requestFields->groups = $email['groups'];
+        } else {
+            $requestFields->contact->firstName = $name;
+            $requestFields->contact->channels = [
+                [
+                    'type' => 'email',
+                    'value' => $email
+                ]
+            ];
+            $requestFields->groups = $groups;
+        }
 
-        $requestFields->groups = $groups;
-        
         return $this->request('v1/contact/subscribe', $requestFields);
     }
 
