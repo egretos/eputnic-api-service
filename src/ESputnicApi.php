@@ -42,8 +42,8 @@ class ESputnicApi
 
     /**
      * @param $email string|array Subscriber Email|Params array
-     * @param $name string Subscriber Name
-     * @param $groups array Subscriber groups
+     * @param $name string|null Subscriber Name
+     * @param $groups array|null Subscriber groups
      * @return string
      */
     public function subscribe($email, $name, $groups)
