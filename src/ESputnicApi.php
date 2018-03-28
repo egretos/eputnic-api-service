@@ -46,7 +46,7 @@ class ESputnicApi
      * @param $groups array|null Subscriber groups
      * @return string
      */
-    public function subscribe($email, $name, $groups)
+    public function subscribe($email, $name = null, $groups = null)
     {
         $requestFields = new stdClass();
         $requestFields->contact = new stdClass();
