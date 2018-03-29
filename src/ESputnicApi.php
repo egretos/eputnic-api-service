@@ -59,6 +59,10 @@ class ESputnicApi
                 ]
             ];
             $requestFields->groups = $email['groups'];
+
+            if (isset($email['formType'])) {
+                $requestFields->formType = $email['formType'];
+            }
         } else {
             $requestFields->contact->firstName = $name;
             $requestFields->contact->channels = [
