@@ -94,6 +94,7 @@ class ESputnicApi
         $requestFields->htmlText = $message->getHtmlBody();
         $requestFields->plainText = $message->getTextBoby();
         $requestFields->fromName = $message->getFrom();
+        $requestFields->from = $message->getFrom();
 
         if ($message->getId()) {
             $url = 'v1/message/'.$message->getId().'/send';
