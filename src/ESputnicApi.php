@@ -119,6 +119,16 @@ class ESputnicApi
         return $this->request($url, $requestFields);
     }
 
+    /**
+     * @param $messageId string
+     * @return string
+     */
+    public function messageStatus($messageId)
+    {
+        $url = 'v1/message/email/status?ids=' . $messageId;
+        return $this->request($url);
+    }
+
     public function __destruct()
     {
         curl_close($this->ch);
