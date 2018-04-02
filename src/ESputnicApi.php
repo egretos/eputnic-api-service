@@ -90,6 +90,7 @@ class ESputnicApi
             return false;
         }
         $requestFields->recipients = $message->getTo();
+        $requestFields->emails = $message->getTo();
         $requestFields->subject = $message->getSubject();
         $requestFields->htmlText = $message->getHtmlBody();
         $requestFields->plainText = $message->getTextBoby();
