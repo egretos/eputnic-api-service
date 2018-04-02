@@ -9,6 +9,7 @@
 namespace ESputnicService;
 
 use stdClass;
+use yii\mail\MessageInterface;
 
 class ESputnicApi
 {
@@ -75,6 +76,45 @@ class ESputnicApi
         }
 
         return $this->request('v1/contact/subscribe', $requestFields);
+    }
+
+    /**
+     * @param ESputnicMessage $message email message instance to be sent
+     * @return bool whether the message has been sent successfully
+     */
+    public function sendMessage(ESputnicMessage $message)
+    {
+        $requestFields = new stdClass();
+
+        if (!$message->validate()) {
+            return false;
+        }
+        $requestFields->recipients = $message->getTo();
+        $requestFields->subject = $message->getSubject();
+        $requestFields->htmlText = $message->getHtmlBody();
+        $requestFields->plainText = $message->getTextBoby();
+        $requestFields->fromName = $message->getFrom();
+
+        if ($message->getId()) {
+            $url = 'v1/message/'.$message->getId().'/send';
+
+            $messageParams = $message->getParams();
+            $requestFields->params = [];
+
+            foreach ($messageParams as $key => $value) {
+                $requestFields->params[] = [
+                    'key' => $key,
+                    'value' => $value,
+                ];
+            }
+        } else {
+            $url = 'v1/message/email';
+        }
+        if ($message->getGroup()) {
+            $requestFields->groupId = $message->getGroup();
+        }
+
+        return $this->request($url, $requestFields);
     }
 
     public function __destruct()
