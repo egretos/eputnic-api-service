@@ -33,7 +33,7 @@ class ESputnicApi
     {
         curl_setopt($this->ch, CURLOPT_URL, ($this->ApiUrl . $requestString));
 
-        if (isset($postFields)) {
+        if ($postFields) {
             curl_setopt($this->ch, CURLOPT_POST, 1);
             curl_setopt($this->ch, CURLOPT_POSTFIELDS, json_encode($postFields));
         }
