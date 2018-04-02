@@ -135,11 +135,12 @@ class ESputnicMessage extends BaseMessage
 
     /**
      * @param array|string $to
-     * @return $this|void
+     * @return $this
      */
     public function setTo($to)
     {
         $this->to = $to;
+        return $this;
     }
 
     /**
@@ -162,7 +163,7 @@ class ESputnicMessage extends BaseMessage
     }
 
     /**
-     * @return string|false
+     * @return string|bool
      */
     public function getHtmlBody()
     {
@@ -255,6 +256,7 @@ class ESputnicMessage extends BaseMessage
     {
         return (
             $this->getTo() ||
+            $this->getFrom() ||
             $this->getSubject() ||
             $this->getHtmlBody() ||
             $this->getTextBoby()
