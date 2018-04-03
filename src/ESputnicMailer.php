@@ -16,8 +16,12 @@ class ESputnicMailer extends BaseMailer
 {
     public $api;
 
-    public function __construct(ESputnicApi $api, array $config = [])
+    public function __construct(array $config = [])
     {
+        $api = new ESputnicApi(
+            \Yii::$app->params['esputnic.username'],
+            \Yii::$app->params['esputnic.userpass']
+        );
         $this->api = $api;
         parent::__construct($config);
     }
