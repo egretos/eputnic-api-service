@@ -105,6 +105,7 @@ class ESputnicApi
         $requestFields->plainText   = $message->getTextBoby();
         $requestFields->fromName    = $message->getFrom();
         $requestFields->from        = $message->getFrom();
+        $requestFields->allowUnconfirmed = true;
         // TODO add tags, css, rawHtml
 
         $messageParams = $message->getParams();
@@ -119,6 +120,11 @@ class ESputnicApi
 
         if ($message->getGroup()) {
             $requestFields->groupId = $message->getGroup();
+        }
+
+        if ($message->getId()) {
+            unset($requestFields->from);
+            unset($requestFields->fromName);
         }
 
         return $requestFields;
