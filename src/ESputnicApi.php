@@ -35,10 +35,10 @@ class ESputnicApi
 
         if ($postFields) {
             curl_setopt($this->ch, CURLOPT_POST, 1);
+            curl_setopt($this->ch, CURLOPT_POSTFIELDS, json_encode($postFields));
         } else {
             curl_setopt($this->ch, CURLOPT_POST, 0);
         }
-        curl_setopt($this->ch, CURLOPT_POSTFIELDS, json_encode($postFields));
 
         return curl_exec($this->ch);
     }

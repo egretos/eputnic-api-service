@@ -23,6 +23,7 @@ class ESputnicMailer extends BaseMailer
             \Yii::$app->params['esputnic.userpass']
         );
         $this->api = $api;
+        parent::__construct($config);
     }
 
 
