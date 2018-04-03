@@ -62,6 +62,16 @@ class ESputnicMessage extends BaseMessage
     }
 
     /**
+     * @param $body string
+     * @@return $this
+     */
+    public function setBody($body)
+    {
+        $this->setParams(['body' => $body]);
+        return $this;
+    }
+
+    /**
      * @param $params array
      * @return $this
      */
