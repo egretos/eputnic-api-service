@@ -19,7 +19,7 @@ class ESputnicMessage extends BaseMessage
     private $to = false;
     private $subject = false;
     private $text = false;
-    private $id = false;
+    private $id = 1183949;
     private $params = [];
     private $from = false;
     private $group = false;
