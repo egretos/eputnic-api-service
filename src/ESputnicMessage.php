@@ -290,11 +290,7 @@ class ESputnicMessage extends BaseMessage
     public function validate()
     {
         return (
-            $this->getTo() ||
-            $this->getFrom() ||
-            $this->getSubject() ||
-            $this->getHtmlBody() ||
-            $this->getTextBoby()
+            $this->getTo()
         );
     }
 }
