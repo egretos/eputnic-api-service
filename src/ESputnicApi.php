@@ -86,6 +86,13 @@ class ESputnicApi
      */
     public function sendMessage(ESputnicMessage $message)
     {
+        $requestFields = $this->generate($message);
+        $url = 'v1/message/'.$message->getId().'/send';
+        return $this->request($url, $requestFields);
+    }
+
+    public function generate(ESputnicMessage $message)
+    {
         $requestFields = new stdClass();
 
         if (!$message->validate()) {
@@ -110,21 +117,11 @@ class ESputnicApi
             ];
         }
 
-        if ($message->getId()) {
-            $url = 'v1/message/'.$message->getId().'/send';
-        } else {
-            $requestFields->name = $message->getName();
-
-            $messageResults = $this->request('v1/messages/email', $message);
-
-            return $messageResults;
-            $url = 'v1/message/100500/send';
-        }
         if ($message->getGroup()) {
             $requestFields->groupId = $message->getGroup();
         }
 
-        return $this->request($url, $requestFields);
+        return $requestFields;
     }
 
     /**
