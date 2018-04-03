@@ -35,8 +35,10 @@ class ESputnicApi
 
         if ($postFields) {
             curl_setopt($this->ch, CURLOPT_POST, 1);
-            curl_setopt($this->ch, CURLOPT_POSTFIELDS, json_encode($postFields));
+        } else {
+            curl_setopt($this->ch, CURLOPT_POST, 0);
         }
+        curl_setopt($this->ch, CURLOPT_POSTFIELDS, json_encode($postFields));
 
         return curl_exec($this->ch);
     }
@@ -89,27 +91,33 @@ class ESputnicApi
         if (!$message->validate()) {
             return false;
         }
-        $requestFields->recipients = $message->getTo();
-        $requestFields->emails = $message->getTo();
-        $requestFields->subject = $message->getSubject();
-        $requestFields->htmlText = $message->getHtmlBody();
-        $requestFields->plainText = $message->getTextBoby();
-        $requestFields->fromName = $message->getFrom();
-        $requestFields->from = $message->getFrom();
+        $requestFields->recipients  = $message->getTo();
+        $requestFields->emails      = $message->getTo();
+        $requestFields->subject     = $message->getSubject();
+        $requestFields->htmlText    = $message->getHtmlBody();
+        $requestFields->plainText   = $message->getTextBoby();
+        $requestFields->fromName    = $message->getFrom();
+        $requestFields->from        = $message->getFrom();
+        // TODO add tags, css, rawHtml
+
+        $messageParams = $message->getParams();
+        $requestFields->params = [];
+
+        foreach ($messageParams as $key => $value) {
+            $requestFields->params[] = [
+                'key' => $key,
+                'value' => $value,
+            ];
+        }
 
         if ($message->getId()) {
             $url = 'v1/message/'.$message->getId().'/send';
-
-            $messageParams = $message->getParams();
-            $requestFields->params = [];
-
-            foreach ($messageParams as $key => $value) {
-                $requestFields->params[] = [
-                    'key' => $key,
-                    'value' => $value,
-                ];
-            }
         } else {
+            $requestFields->name = $message->getName();
+
+            $messageResults = $this->request('v1/messages/email', $message);
+
+            return $messageResults;
             $url = 'v1/message/100500/send';
         }
         if ($message->getGroup()) {
