@@ -110,7 +110,7 @@ class ESputnicApi
                 ];
             }
         } else {
-            $url = 'v1/message/email';
+            $url = 'v1/message/100500/send';
         }
         if ($message->getGroup()) {
             $requestFields->groupId = $message->getGroup();

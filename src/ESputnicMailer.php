@@ -22,6 +22,17 @@ class ESputnicMailer extends BaseMailer
         parent::__construct($config);
     }
 
+
+    /**
+     * @param null $view
+     * @param array $params
+     * @return ESputnicMessage|MessageInterface
+     */
+    public function compose($view = null, array $params = [])
+    {
+        return new ESputnicMessage();
+    }
+
     /**
      * @param MessageInterface $message email message instance to be sent
      * @return bool whether the message has been sent successfully
