@@ -11,10 +11,12 @@ namespace ESputnicService;
 
 use yii\mail\BaseMailer;
 use yii\mail\MessageInterface;
+use Yii;
 
 class ESputnicMailer extends BaseMailer
 {
     public $api;
+    private $_message;
 
     public function __construct(array $config = [])
     {
