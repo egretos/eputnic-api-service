@@ -67,7 +67,7 @@ class ESputnicMessage extends BaseMessage
      */
     public function setBody($body)
     {
-        $this->setParams(['body' => $body]);
+        $this->setParams(['TEMPLATE.html_body' => $body]);
         return $this;
     }
 
