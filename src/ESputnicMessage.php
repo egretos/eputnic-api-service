@@ -265,7 +265,7 @@ class ESputnicMessage extends BaseMessage
 
     public function toString()
     {
-        // TODO: Implement toString() method.
+        return json_encode($this);
     }
 
     /**
