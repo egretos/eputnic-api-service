@@ -8,8 +8,8 @@
 
 namespace ESputnicService;
 
-
 use yii\mail\BaseMessage;
+use stdClass;
 
 class ESputnicMessage extends BaseMessage
 {
@@ -275,7 +275,13 @@ class ESputnicMessage extends BaseMessage
 
     public function toString()
     {
-        return json_encode($this);
+        $properties = get_object_vars($this);
+        $object     = new StdClass();
+        $object->_class      = get_class($this);
+        foreach ($properties as $name => $value) {
+            $object->$name = $value;
+        }
+        return json_encode($object);
     }
 
     /**
