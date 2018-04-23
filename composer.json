@@ -20,10 +20,11 @@
         "php": ">=5.4.0",
         "psr/log": "~1.0",
         "yiisoft/yii2": "^2.0.6",
-        "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yidas/yii2-bower-asset": "^2.0"
+        "yiisoft/yii2-bootstrap": "~2.0.0"
     },
-    "autoload": {
-        "psr-4": {"ESputnicService\\": "src"}
+    "require-dev": {
+      "yidas/yii2-bower-asset": "^2.0"
+    },
+    "autoload": {"psr-4": {"ESputnicService\\": "src"}
     }
 }
