@@ -55,12 +55,12 @@ class ESputnicApi
         $requestFields->contact = new stdClass();
         if (func_num_args() == 1) {
             $requestFields->contact->firstName = $email['name'];
-            $requestFields->contact->channels = [
-                [
+            if (isset($email['email'])) {
+                $requestFields->contact->channels[] = [
                     'type' => 'email',
                     'value' => $email['email']
-                ]
-            ];
+                ];
+            }
             if (isset($email['sms'])) {
                 $requestFields->contact->channels[] = [
                     'type' => 'sms',
