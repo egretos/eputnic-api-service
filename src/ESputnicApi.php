@@ -62,6 +62,13 @@ class ESputnicApi
                     'value' => $email['email']
                 ]
             ];
+            if (isset($email['sms'])) {
+                $requestFields->contact->channels[] = [
+                    'type' => 'sms',
+                    'value' => $email['sms']
+                ];
+            }
+
             $requestFields->groups = $email['groups'];
 
             if (isset($email['formType'])) {
