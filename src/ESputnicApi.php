@@ -47,9 +47,10 @@ class ESputnicApi
      * @param $email string|array Subscriber Email|Params array
      * @param $name string|null Subscriber Name
      * @param $groups array|null Subscriber groups
+     * @param $phone array|null Subscriber phone
      * @return string
      */
-    public function subscribe($email, $name = null, $groups = null)
+    public function subscribe($email, $name = null, $groups = null, $phone = null)
     {
         $requestFields = new stdClass();
         $requestFields->contact = new stdClass();
@@ -72,7 +73,11 @@ class ESputnicApi
                 [
                     'type' => 'email',
                     'value' => $email
-                ]
+                ],
+                [
+                    'type' => 'sms',
+                    'value' => $phone
+                ],
             ];
             $requestFields->groups = $groups;
         }
