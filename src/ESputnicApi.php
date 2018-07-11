@@ -9,7 +9,6 @@
 namespace ESputnicService;
 
 use stdClass;
-use yii\mail\MessageInterface;
 
 class ESputnicApi
 {
