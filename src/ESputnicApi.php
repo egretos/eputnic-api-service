@@ -51,30 +51,31 @@ class ESputnicApi
      */
     public function subscribe($email, $name = null, $groups = null, $phone = null)
     {
-        $contact = new stdClass();
+        $requestFields = new stdClass();
+        $requestFields->contact = new stdClass();
         if (func_num_args() == 1) {
-            $contact->firstName = $email['name'];
+            $requestFields->contact->firstName = $email['name'];
             if (isset($email['email'])) {
-                $contact->channels[] = [
+                $requestFields->contact->channels[] = [
                     'type' => 'email',
                     'value' => $email['email']
                 ];
             }
             if (isset($email['sms'])) {
-                $contact->channels[] = [
+                $requestFields->contact->channels[] = [
                     'type' => 'sms',
                     'value' => $email['sms']
                 ];
             }
 
-            $contact->groups = $email['groups'];
+            $requestFields->groups = $email['groups'];
 
             if (isset($email['formType'])) {
-                $contact->formType = $email['formType'];
+                $requestFields->formType = $email['formType'];
             }
         } else {
-            $contact->contact->firstName = $name;
-            $contact->contact->channels = [
+            $requestFields->contact->firstName = $name;
+            $requestFields->contact->channels = [
                 [
                     'type' => 'email',
                     'value' => $email
@@ -84,10 +85,10 @@ class ESputnicApi
                     'value' => $phone
                 ],
             ];
-            $contact->groups = $groups;
+            $requestFields->groups = $groups;
         }
 
-        return $this->request('v1/contact', $contact);
+        return $this->request('v1/contact/subscribe', $requestFields);
     }
 
     /**
