@@ -1,13 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: egretos
- * Date: 26.03.18
- * Time: 9:11
- */
 
 namespace ESputnicService;
 
+use ESputnicService\classes\Contact;
 use stdClass;
 
 class ESputnicApi
@@ -47,7 +42,10 @@ class ESputnicApi
      * @param $name string|null Subscriber Name
      * @param $groups array|null Subscriber groups
      * @param $phone array|null Subscriber phone
+     *
      * @return string
+     *
+     * @deprecated use subscribeContact()
      */
     public function subscribe($email, $name = null, $groups = null, $phone = null)
     {
@@ -89,6 +87,44 @@ class ESputnicApi
         }
 
         return $this->request('v1/contact/subscribe', $requestFields);
+    }
+
+    /**
+     * @param string|Contact $contact
+     * @return bool|string
+     */
+    public function postContact($contact)
+    {
+        if ($contact instanceof Contact) {
+            return $this->request('v1/contact', $contact);
+        }
+
+        if (is_string($contact)) {
+            $cont = new Contact();
+            $cont->setEmail($contact);
+            $this->postContact($cont);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param Contact $contact
+     * @param array[string] $groupNames
+     * @param string $formType
+     *
+     * @return string
+     */
+    public function subscribeContact($contact, $groups, $formType)
+    {
+        $request = new stdClass();
+        $request->contact = $contact;
+        $request->groups = $groups;
+        $request->formType = $formType;
+
+        return $this->request('v1/contact/subscribe', $request);
     }
 
     /**
