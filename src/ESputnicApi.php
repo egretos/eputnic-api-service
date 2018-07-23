@@ -87,7 +87,7 @@ class ESputnicApi
             $contact->groups = $groups;
         }
 
-        return $this->request('v1/contact/contact', $contact);
+        return $this->request('v1/contact', $contact);
     }
 
     /**
