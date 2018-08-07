@@ -111,6 +111,34 @@ class ESputnicApi
     }
 
     /**
+     * @param Contact[] $contacts
+     * @param string $formType
+     * @return bool|string
+     */
+    public function postContacts($contacts, $formType)
+    {
+        $requestBody = new stdClass();
+
+        if (is_array($contacts)) {
+            foreach ($contacts as $contact) {
+                if (!$contact instanceof Contact) {
+                    throw new \InvalidArgumentException('contacts must to be array of ESputnicService\classes\Contact');
+                }
+            }
+
+            $requestBody->contacts = $contacts;
+        } else {
+            throw new \InvalidArgumentException('contacts must to be array of ESputnicService\classes\Contact');
+        }
+
+        if (is_string($formType)) {
+            $requestBody->eventKeyForNewContacts = $formType;
+        }
+
+        return $this->request('/v1/contacts', $requestBody);
+    }
+
+    /**
      * @param Contact $contact
      * @param array[string] $groupNames
      * @param string $formType
