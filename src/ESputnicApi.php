@@ -115,7 +115,7 @@ class ESputnicApi
      * @param string $formType
      * @return bool|string
      */
-    public function postContacts($contacts, $formType)
+    public function postContacts($contacts, $formType = null)
     {
         $requestBody = new stdClass();
 
@@ -131,7 +131,7 @@ class ESputnicApi
             throw new \InvalidArgumentException('contacts must to be array of ESputnicService\classes\Contact');
         }
 
-        if (is_string($formType)) {
+        if ($formType && is_string($formType)) {
             $requestBody->eventKeyForNewContacts = $formType;
         }
 
