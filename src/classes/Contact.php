@@ -11,6 +11,7 @@ namespace ESputnicService\classes;
  * @property string $firstName
  * @property string $lastName
  * @property Channel[] $channels
+ * @property Group[] $groups
  */
 class Contact
 {
@@ -41,16 +42,26 @@ class Contact
         $this->channels[] = $channel;
     }
 
+    /**
+     * @param string $email
+     */
     public function setEmail($email)
     {
         $this->addChanel($email, Channel::EMAIL);
     }
 
+    /**
+     * @param string $phone
+     */
     public function setPhone($phone)
     {
         $this->addChanel($phone, Channel::SMS);
     }
 
+    /**
+     * @param string|Group $group
+     * @return bool
+     */
     public function addGroup($group)
     {
         if ($group instanceof Group) {

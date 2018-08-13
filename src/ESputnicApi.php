@@ -3,6 +3,7 @@
 namespace ESputnicService;
 
 use ESputnicService\classes\Contact;
+use ESputnicService\classes\forms\ContactBulkUpdateForm;
 use stdClass;
 
 class ESputnicApi
@@ -111,31 +112,12 @@ class ESputnicApi
     }
 
     /**
-     * @param Contact[] $contacts
-     * @param string $formType
-     * @return bool|string
+     * @param ContactBulkUpdateForm $form
+     * @return string
      */
-    public function postContacts($contacts, $formType = null)
+    public function postContacts(ContactBulkUpdateForm $form)
     {
-        $requestBody = new stdClass();
-
-        if (is_array($contacts)) {
-            foreach ($contacts as $contact) {
-                if (!$contact instanceof Contact) {
-                    throw new \InvalidArgumentException('contacts must to be array of ESputnicService\classes\Contact');
-                }
-            }
-
-            $requestBody->contacts = $contacts;
-        } else {
-            throw new \InvalidArgumentException('contacts must to be array of ESputnicService\classes\Contact');
-        }
-
-        if ($formType && is_string($formType)) {
-            $requestBody->eventKeyForNewContacts = $formType;
-        }
-
-        return $this->request('/v1/contacts', $requestBody);
+        return $this->request('/v1/contacts', $form);
     }
 
     /**
